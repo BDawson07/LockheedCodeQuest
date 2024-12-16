@@ -19,26 +19,31 @@ inputs = [
 
 #Rounding Half Up function
 #Super scuffed, and probably not that good, but it gets the job done 
-def round_half_up(value:float, decimal:int) -> str:
+def round_half_up(value:float,decimals:int, trailing_zeros:bool = True) -> str:
+    
+
+    value = float(value)#JIK
+
+    #handles negative values
     negative = 1
     if value <= 0:
-        negative = -1 #if it is negative, it will flip the sign in the end
         value *= -1
-    new_value = value * 10**(decimal)
-    print(new_value)
+        negative = -1
     
-    # checks the last digit of value
-    if int(str(value)[-1]) >= 5:
-        new_value = int(math.ceil(new_value))
+    new_value = value*10**(decimals+1)
+    new_value = math.floor(new_value)/10
+    
+    if int(str(new_value)[-1]) >= 5:
+        new_value = math.ceil(new_value)
     else:
-        new_value = int(math.floor(new_value))
-
+        new_value = math.floor(new_value)
     
-    new_value = new_value / 10.00**(decimal) * negative
-    new_value = str(new_value).split(".")[0] + "." + str(new_value).split(".")[1].ljust(decimal,"0")
+    new_value /= 10**decimals * negative
 
-    #Important: Returns a string
-    return new_value 
+    if trailing_zeros:
+        new_value = str(new_value).split(".")[0] + "." + str(new_value).split(".")[1].ljust(decimals,"0")   #trailing Zeros 
+
+    return new_value
 
 def automatic_inputs() -> str:
     return_value = inputs[0]
