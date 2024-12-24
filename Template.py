@@ -59,10 +59,7 @@ def automatic_inputs(value = None) -> str:
     inputs.remove(inputs[0])  #Fetches the first input and deletes it from being used further
     return return_value
 
-def automatic_inputs() -> str:
-    return_value = inputs[0]
-    inputs.remove(inputs[0])  #Fetches the first input and deletes it from being used further
-    return return_value
+
 
 cases = int(automatic_inputs())
 
