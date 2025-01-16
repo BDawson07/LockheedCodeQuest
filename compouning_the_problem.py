@@ -10,8 +10,70 @@ import sys
 import math
 import string
 
-inputs = """
-
+inputs = """2
+30
+1,200.00,
+2,,
+3,,
+4,350.00,
+5,,
+6,,
+7,,
+8,100.00,
+9,,50.00
+10,,
+11,,
+12,400.00,
+13,,
+14,,
+15,,
+16,,
+17,,
+18,,
+19,,
+20,,
+21,75.00,
+22,,
+23,,
+24,,100.00
+25,,
+26,,
+27,200.00,
+28,,
+29,,
+30,,
+31
+1,300.00,
+2,,
+3,,
+4,450.00,
+5,,
+6,,
+7,,
+8,100.00,
+9,,50.00
+10,,
+11,,
+12,800.00,
+13,,
+14,,
+15,,
+16,,
+17,,
+18,,
+19,,
+20,,
+21,75.00,
+22,,
+23,,
+24,,100.00
+25,,
+26,,
+27,200.00,
+28,,
+29,,
+30,,
+31,,
 """
 
 
@@ -77,8 +139,26 @@ def automatic_inputs(value = None) -> str:
 
 
 
-cases = int(automatic_inputs())
+cases = int(sys.stdin.readline().rstrip())
 
 for case in range(cases):
-    ###Write the logic for each Sample###
-    print(automatic_inputs())
+    float_go_away = 10000
+    billing_cycle = int(sys.stdin.readline().rstrip())
+    A = 0
+    D = billing_cycle
+    I = .18
+    P = 12
+    cost = 0
+
+    #feteches each day report
+    for i in range(billing_cycle):
+        a,b,c = sys.stdin.readline().rstrip().split(",")
+        if b != '':
+            cost += float(b) * float_go_away
+        if c != '':
+            cost -= float(c) * float_go_away
+        A += cost
+    
+    A /= float_go_away
+
+    print(f"${round_half_up((A/D) * (I/P),2)}")

@@ -10,8 +10,13 @@ import sys
 import math
 import string
 
-inputs = """
-
+inputs = """2
+6
+123.45 678.90 1234.56 789.01 2345.67 8901.23
+321.54 876.09 1432.65 987.10 2543.76 8109.32
+6
+250.00 349.99 150.45 782.15 650.00 99.99
+225.16 299.99 160.14 798.16 650.00 75.00
 """
 
 
@@ -51,8 +56,12 @@ def round_half_up(value:float,decimals:int, trailing_zeros = True, l_zeros = Fal
 
     return new_value
 
-#simplifies floating point math by simply getting rid of the floating points. Call this with a list of all values that will
-#have floats and code things like addition or subtraction with the float_go_away value in mind
+
+def automatic_inputs(value = None) -> str:
+    return_value = inputs[0]
+    inputs.remove(inputs[0])  #Fetches the first input and deletes it from being used further
+    return return_value
+
 def check_numbers_for_floats(values:list) -> None:
     global float_go_away
     float_go_away = 1
@@ -66,19 +75,20 @@ def check_numbers_for_floats(values:list) -> None:
     if greatest_len >= 30:
         greatest_len = 30
     float_go_away = 10**(greatest_len)
-    
-
-    
-
-def automatic_inputs(value = None) -> str:
-    return_value = inputs[0]
-    inputs.remove(inputs[0])  #Fetches the first input and deletes it from being used further
-    return return_value
 
 
 
-cases = int(automatic_inputs())
+cases = int(sys.stdin.readline().rstrip())
 
 for case in range(cases):
-    ###Write the logic for each Sample###
-    print(automatic_inputs())
+    num_numbers = int(sys.stdin.readline().rstrip())
+    projected_costs = sys.stdin.readline().rstrip().split(" ")
+    actual_costs = sys.stdin.readline().rstrip().split(" ")
+
+    check_numbers_for_floats([float(i) for i in projected_costs] + [float(i) for i in actual_costs])   
+
+    variance = 0
+    for i in range(len(projected_costs)):
+        variance += (float(actual_costs[i]) * float_go_away - float(projected_costs[i]) * float_go_away) 
+
+    print(round_half_up(variance / (num_numbers * float_go_away), 2))

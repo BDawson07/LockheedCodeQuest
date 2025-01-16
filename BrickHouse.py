@@ -10,7 +10,10 @@ import sys
 import math
 import string
 
-inputs = """
+inputs = """3
+3 1 8
+3 1 9
+3 2 10
 
 """
 
@@ -77,8 +80,33 @@ def automatic_inputs(value = None) -> str:
 
 
 
-cases = int(automatic_inputs())
+cases = int(sys.stdin.readline().rstrip())
 
 for case in range(cases):
     ###Write the logic for each Sample###
-    print(automatic_inputs())
+    smalls, larges, length = sys.stdin.readline().rstrip().split(" ")
+    smalls, larges, length = int(smalls), int(larges), int(length)
+
+    actual_length = 0
+    for i in range(larges):
+        if (actual_length + 5) > length:
+            break
+        actual_length += 5
+        if (actual_length) >= length:
+            break
+
+    breakAway = False 
+
+    for i in range(smalls):
+        if actual_length == length:
+            break
+        else:
+            actual_length += 1
+        if actual_length == length:
+            break
+    else:
+        print("false")
+        breakAway = True
+
+    if not breakAway:
+        print("true")

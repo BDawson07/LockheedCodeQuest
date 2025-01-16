@@ -10,7 +10,14 @@ import sys
 import math
 import string
 
-inputs = """
+inputs = """3
+203 3
+101 50 300
+199 2
+100 102
+410 5
+50 75 100 125 150
+
 
 """
 
@@ -77,8 +84,49 @@ def automatic_inputs(value = None) -> str:
 
 
 
-cases = int(automatic_inputs())
+cases = int(sys.stdin.readline().rstrip())
+
+
+def count_not_full():
+    count = 0
+    for i in list_of_tanks:
+        if not i["full"]:
+            count += 1
+    return count
 
 for case in range(cases):
+    list_of_tanks = []
     ###Write the logic for each Sample###
-    print(automatic_inputs())
+    units_of_fuel, tanks = sys.stdin.readline().rstrip().split(" ")
+
+    units_of_fuel = int(units_of_fuel)
+
+    tanks = int(tanks)
+
+
+    capacities = sys.stdin.readline().rstrip().split(' ')
+    contents = [0 for i in range(len(capacities))]
+    not_full = tanks
+    highest_fill = 0
+
+    while units_of_fuel >= not_full:
+        for i in range(tanks):
+            if contents[i] != int(capacities[i]):
+                contents[i] += 1
+                units_of_fuel -= 1
+                
+                if contents[i] == int(capacities[i]):
+                    not_full -= 1
+        highest_fill += 1
+    
+    if units_of_fuel != 0:
+        GCD = math.gcd(units_of_fuel,not_full)
+        denominator = not_full // GCD
+        fill = highest_fill * denominator +  units_of_fuel // GCD
+        for i in range(len(contents)):
+            if int(contents[i]) != int(capacities[i]):
+                contents[i] = f"{fill}/{denominator}"
+
+        
+    contents = [str(i) for i in contents]
+    print(" ".join(contents))

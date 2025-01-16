@@ -10,7 +10,12 @@ import sys
 import math
 import string
 
-inputs = """
+inputs = """4
+1984
+2012
+2020
+2043
+
 
 """
 
@@ -77,8 +82,25 @@ def automatic_inputs(value = None) -> str:
 
 
 
-cases = int(automatic_inputs())
+cases = int(sys.stdin.readline().rstrip())
 
 for case in range(cases):
     ###Write the logic for each Sample###
-    print(automatic_inputs())
+    year = int(sys.stdin.readline().rstrip())
+
+    #ASPECT
+    if year % 2 == 0:
+        aspect = "Yang"
+    else:
+        aspect = "Yin"
+
+    elements = ["Wood","Fire","Earth","Metal","Water"]
+    #ELEMENT
+    element = elements[((year - 4) % 10 // 2)] 
+
+
+    #ANIMAL
+    animals = ["Rat", "Ox", 'Tiger', 'Rabbit', 'Dragon', 'Snake', 'Horse', 'Goat', 'Monkey', 'Rooster', 'Dog', 'Pig']
+    animal = animals[((year - 4) % 12)]
+    
+    print(f"{year} {aspect} {element} {animal}")

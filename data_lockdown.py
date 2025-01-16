@@ -10,7 +10,15 @@ import sys
 import math
 import string
 
-inputs = """
+inputs = """1
+6
+www.google.com 128
+www.dropbox.com 1424
+www.cnn.com 142
+codequest.global.lmco.com 212
+www.australia.gov.au 4120
+filetransfer.us.lmco.com 2186
+
 
 """
 
@@ -80,5 +88,18 @@ def automatic_inputs(value = None) -> str:
 cases = int(automatic_inputs())
 
 for case in range(cases):
-    ###Write the logic for each Sample###
-    print(automatic_inputs())
+    requests = int(automatic_inputs())
+    
+    further_review = []
+    for i in range(requests):
+        request,size = automatic_inputs().split(" ")
+        if len(request.split(".")) >= 2:
+            if request.split(".")[-2] == "lmco" and request.split(".")[-1] == "com":
+                continue
+            else:
+                if int(size) > 1000:
+                    further_review.append(" ".join([request,size]))
+                    
+
+    for i in further_review:
+        print(i)

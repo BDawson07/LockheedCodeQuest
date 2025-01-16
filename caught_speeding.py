@@ -10,7 +10,11 @@ import sys
 import math
 import string
 
-inputs = """
+inputs = """3
+60 false
+82 false
+83 true
+
 
 """
 
@@ -77,8 +81,24 @@ def automatic_inputs(value = None) -> str:
 
 
 
-cases = int(automatic_inputs())
+cases = int(sys.stdin.readline().rstrip())
 
 for case in range(cases):
     ###Write the logic for each Sample###
-    print(automatic_inputs())
+    speed, is_birthday = sys.stdin.readline().rstrip().split(" ")
+    speed, is_birthday = float(speed), bool(is_birthday == "true")
+
+    
+
+    if is_birthday:
+        modifier = 5
+    else:
+        modifier = 0
+
+    
+    if speed <= (60 + modifier):
+        print("no ticket")
+    elif (61 + modifier) <= speed <= (80 + modifier):
+        print("small ticket")
+    elif speed >= (81 + modifier):
+        print("big ticket")

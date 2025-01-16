@@ -10,7 +10,11 @@ import sys
 import math
 import string
 
-inputs = """
+inputs = """4
+5000
+50000
+100000
+200000
 
 """
 
@@ -77,8 +81,24 @@ def automatic_inputs(value = None) -> str:
 
 
 
-cases = int(automatic_inputs())
+cases = int(sys.stdin.readline().rstrip())
 
 for case in range(cases):
     ###Write the logic for each Sample###
-    print(automatic_inputs())
+    income = int(sys.stdin.readline().rstrip())
+    if 0 <= income <= 11_000:
+        tax = income * .1
+    elif 11_001 <= income <=44_725:
+        tax = income * .12
+    elif 44_726 <= income <=95_375:
+        tax = income * .22
+    elif 95_376 <= income <=182_100:
+        tax = income * .24
+    elif 182_101 <= income <=231_250:
+        tax = income * .32
+    elif 231_251 <= income <= 578_125:
+        tax = income * .35
+    else:
+        tax = income * .37
+    
+    print(int(float(round_half_up(tax,0))))

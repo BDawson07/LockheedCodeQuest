@@ -77,8 +77,10 @@ def automatic_inputs(value = None) -> str:
 
 
 
+
+ 
 cases = int(automatic_inputs())
 
 for case in range(cases):
     ###Write the logic for each Sample###
-    print(automatic_inputs())
+    rows = []

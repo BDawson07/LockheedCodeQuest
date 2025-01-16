@@ -10,8 +10,13 @@ import sys
 import math
 import string
 
-inputs = """
-
+inputs = """3
+.3 .61 .4 .15 .81 .47 .98
+.2 .64 .7 .36 .63 .71 .09
+.45 .53 .59 .13 .21 .78 .34 .78 .91
+.87 .71 .32 .33 .58 .61 .79 .86 .62
+.5 .71 .42 .36 .49 .82 .6 .21
+.67 .41 .76 .83 .85 .12 .51 .92
 """
 
 
@@ -81,4 +86,19 @@ cases = int(automatic_inputs())
 
 for case in range(cases):
     ###Write the logic for each Sample###
-    print(automatic_inputs())
+    antennas = automatic_inputs().split(" ")
+    hamronics = automatic_inputs().split(" ")
+
+    indexes = []
+    for i in range(len(antennas)):
+        if .6 < float(antennas[i]) <= .85:
+            if .6 < float(hamronics[i]) <= .85:
+                indexes.append(str(i))
+    if len(indexes) == 0:
+        
+        print("No multipaction events detected.")
+    elif len(indexes) == 1:
+        print(f"A multipaction event was detected at time index {indexes[0]}.")
+        print("")
+    else:
+        print(f"{len(indexes)} multipaction events were detected at time indices: {' '.join(indexes)}.") 

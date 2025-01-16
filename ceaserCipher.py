@@ -10,8 +10,13 @@ import sys
 import math
 import string
 
-inputs = """
-
+inputs = """3
+1
+buubdl bu ebxo
+3
+ghvwurb wkh fdvwoh
+6
+yzkgr znk ynov
 """
 
 
@@ -51,34 +56,40 @@ def round_half_up(value:float,decimals:int, trailing_zeros = True, l_zeros = Fal
 
     return new_value
 
-#simplifies floating point math by simply getting rid of the floating points. Call this with a list of all values that will
-#have floats and code things like addition or subtraction with the float_go_away value in mind
-def check_numbers_for_floats(values:list) -> None:
-    global float_go_away
-    float_go_away = 1
 
-    greatest_len = 0
-    for i in values:
-        if len(str(float(i)).split(".")[1]) > greatest_len:
-            greatest_len = len(str(i).split(".")[1])   #finds the most complicated float value
-    
-    #At this point does it matter?
-    if greatest_len >= 30:
-        greatest_len = 30
-    float_go_away = 10**(greatest_len)
-    
 
-    
 
 def automatic_inputs(value = None) -> str:
     return_value = inputs[0]
     inputs.remove(inputs[0])  #Fetches the first input and deletes it from being used further
     return return_value
 
+def alteration(number, altering, max):
+    number += altering
+    while number <= 0:
+        number += max
+        
+    while number > max:
+        number -= max
+
+    return number
+
+base = ord("a") - 1
 
 
-cases = int(automatic_inputs())
+cases = int(sys.stdin.readline().rstrip())
 
 for case in range(cases):
     ###Write the logic for each Sample###
-    print(automatic_inputs())
+    shift = int(sys.stdin.readline().rstrip())
+
+    sentence = sys.stdin.readline().rstrip().split()
+    new_sentence = []
+    for word in sentence:
+        new_word = ""
+        for char in word:
+            new_word += chr(base + alteration((ord(char)-base),shift*-1,26))
+        new_sentence.append(new_word)
+    
+    print(" ".join(new_sentence))
+            

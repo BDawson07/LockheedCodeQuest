@@ -9,9 +9,13 @@ CodeQuestLink:
 import sys
 import math
 import string
+import datetime
 
-inputs = """
-
+inputs = """4
+11.30.2024 17:46:09|12.25.2024 07:02:28
+01.10.2026 14:15:13|01.01.2027 15:25:20
+03.12.2025 23:59:46|01.01.2026 11:31:38
+05.05.2024 05:09:43|07.04.2024 04:10:50
 """
 
 
@@ -77,8 +81,50 @@ def automatic_inputs(value = None) -> str:
 
 
 
-cases = int(automatic_inputs())
+cases = int(sys.stdin.readline().rstrip())
 
 for case in range(cases):
     ###Write the logic for each Sample###
-    print(automatic_inputs())
+
+    #sample input  MONTH.DAY.YEAR HH:MM:S|MONTH.DAY.YEAR HH:MM:S
+    date1,date2 = sys.stdin.readline().rstrip().split("|")
+
+
+    #DATE1
+    date, time = date1.split(" ")
+
+    MM,DD,YY = date.split(".")   
+    HH,M,S = time.split(":")
+    
+    date1 = datetime.datetime(int(YY) ,int(MM) ,int(DD) ,int(HH) ,int(M) ,int(S) )
+
+    #DATE1
+    date, time = date2.split(" ")
+
+    MM,DD,YY = date.split(".")
+      
+    HH,M,S = time.split(":")
+
+    date2 = datetime.datetime(int(YY) ,int(MM) ,int(DD) ,int(HH) ,int(M) ,int(S) )
+
+    date = date2 - date1
+    days = date.days
+    
+    HH,MM,SS = str((date)).split(" ")[2].split(":")
+    
+    days_str  = "Days"
+    hh_str  = "Hours"
+    mm_str  = "Minutes"
+    ss_str  = "Seconds"
+
+    if int(days) == 1:
+        days_str = "Day"
+    if int(HH) == 1:
+        ss_str = "Hour"
+    if int(MM) == 1:
+        mm_str = "Minute"
+    if int(SS) == 1:
+        ss_str = "Second"
+
+    print(f"{days} {days_str} {HH} {hh_str} {MM} {mm_str} {SS} {ss_str}")
+

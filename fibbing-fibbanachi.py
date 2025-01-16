@@ -10,8 +10,9 @@ import sys
 import math
 import string
 
-inputs = """
-
+inputs = """2
+12
+89
 """
 
 
@@ -75,10 +76,21 @@ def automatic_inputs(value = None) -> str:
     inputs.remove(inputs[0])  #Fetches the first input and deletes it from being used further
     return return_value
 
-
-
-cases = int(automatic_inputs())
+def summary(previous1,previous2,maxe):
+    if maxe == (previous1 + previous2):
+        return "TRUE"
+    elif maxe < previous2 + previous1:
+        return "FALSE"
+    else:
+        return summary(previous2, previous1+previous2,maxe)
+    
+    
+        
+cases = int(sys.stdin.readline().rstrip())
 
 for case in range(cases):
-    ###Write the logic for each Sample###
-    print(automatic_inputs())
+    fibanachi = int(sys.stdin.readline().rstrip())
+    if fibanachi == 0:
+        print("TRUE")
+    else:
+        print(summary(0,1,fibanachi),)

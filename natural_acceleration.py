@@ -10,7 +10,12 @@ import sys
 import math
 import string
 
-inputs = """
+inputs = """5
+28.3922
+34.7420
+-37.9402
+5.0500
+0.0000
 
 """
 
@@ -78,7 +83,19 @@ def automatic_inputs(value = None) -> str:
 
 
 cases = int(automatic_inputs())
+formula = "2*pi*c*r/t"
 
 for case in range(cases):
-    ###Write the logic for each Sample###
-    print(automatic_inputs())
+    a = abs(float(automatic_inputs()))
+
+    
+    vars = {
+        'pi':math.pi,
+        'r': 6_370_000,
+        't':86_400,
+        'a':a,
+        'c':math.cos(math.radians(a))
+        
+    }
+
+    print(math.floor(eval(formula,vars)))

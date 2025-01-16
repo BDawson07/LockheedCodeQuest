@@ -10,8 +10,13 @@ import sys
 import math
 import string
 
-inputs = """
-
+inputs = """6
+File1.txt
+File2.doc
+File3.out
+File4.txt
+File5.so
+File6.dll
 """
 
 
@@ -77,8 +82,16 @@ def automatic_inputs(value = None) -> str:
 
 
 
-cases = int(automatic_inputs())
+cases = int(sys.stdin.readline().rstrip())
+counter = {}
 
 for case in range(cases):
     ###Write the logic for each Sample###
-    print(automatic_inputs())
+    file, type = sys.stdin.readline().rstrip().split(".")
+    try:
+        counter[type] += 1
+    except KeyError:
+        counter[type] = 1
+
+for i in counter.keys():
+    print(f"{i} {counter[i]}")

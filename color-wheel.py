@@ -10,8 +10,11 @@ import sys
 import math
 import string
 
-inputs = """
-
+inputs = """4
+violet
+blue-green
+yellow
+orange
 """
 
 
@@ -79,6 +82,18 @@ def automatic_inputs(value = None) -> str:
 
 cases = int(automatic_inputs())
 
+
+
 for case in range(cases):
     ###Write the logic for each Sample###
-    print(automatic_inputs())
+    color = automatic_inputs()
+
+    if "violet" in color:
+        print(f"In order to make {color}, blue and red must be mixed.")
+    elif "green" in color: 
+        print(f"In order to make {color}, blue and yellow must be mixed.")
+           
+    elif "orange" in color:
+        print(f"In order to make {color}, red and yellow must be mixed.")
+    else:
+        print(f"No colors need to be mixed to make {color}.")

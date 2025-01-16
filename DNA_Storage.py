@@ -10,8 +10,9 @@ import sys
 import math
 import string
 
-inputs = """
-
+inputs = """2
+GATCATAGCATCAGCGAGCTAGCACGTACGAGCGC
+CTTATGGCTCATTCTGGATGTACGAATTACCATGTAGCATTATCTAATG
 """
 
 
@@ -75,10 +76,26 @@ def automatic_inputs(value = None) -> str:
     inputs.remove(inputs[0])  #Fetches the first input and deletes it from being used further
     return return_value
 
+gatc = {
+    "G":"1",
+    "T":"0",
+    "A":"0",
+    "C":"1"
+
+}
 
 
-cases = int(automatic_inputs())
+cases = int(sys.stdin.readline().rstrip())
 
 for case in range(cases):
-    ###Write the logic for each Sample###
-    print(automatic_inputs())
+    string = sys.stdin.readline().rstrip()
+
+    segment = ""
+    word = ""
+    for i in string:
+        segment += gatc[i]
+        if len(segment) == 7:
+            word += chr(int(segment,2))
+            segment = ""
+
+    print(word)

@@ -10,8 +10,8 @@ import sys
 import math
 import string
 
-inputs = """
-
+inputs = """1
+5 6 3
 """
 
 
@@ -77,8 +77,19 @@ def automatic_inputs(value = None) -> str:
 
 
 
-cases = int(automatic_inputs())
+cases = int(sys.stdin.readline().rstrip())
 
 for case in range(cases):
-    ###Write the logic for each Sample###
-    print(automatic_inputs())
+    r,w,h = sys.stdin.readline().rstrip().split(" ")
+    r,w,h = int(r),int(w),int(h)
+
+    safe = []
+    for x in range(0,w+1):
+        for y in range(0,h+1):
+            if x**2 + y**2 > r**2:
+                safe.append((x,y))
+    
+    for i in safe:
+        print(f"{i[0]}, {i[1]}")
+
+
