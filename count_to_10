@@ -77,13 +77,13 @@ def automatic_inputs(value = None) -> str:
 
 
 
-cases = int(automatic_inputs())
+cases = int(sys.stdin.readline().rstrip())
 
 for case in range(cases):
     ###Write the logic for each Sample###
-    num_of_chars = int(automatic_inputs())
+    num_of_chars = int(sys.stdin.readline().rstrip())
     #takes the length of the intiger in num_of_chars
     #length = len(str(int("1"*num_of_chars,2)).split("b")[1])
-    print(str(int("1"*num_of_chars,2)).split("b"))
-    for i in range(int("1"*num_of_chars,2)):
-        print(str(bin(i)).split("b")[1].rjust("0"))    
+
+    for i in range(int("1"*num_of_chars,2)+1):
+        print(str(bin(i)).split("b")[1].rjust(num_of_chars,"0"))    
