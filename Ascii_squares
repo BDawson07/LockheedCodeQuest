@@ -1,0 +1,120 @@
+"""
+Date: 02-04-2025
+Name: Ascii squares
+Authors: Dawson 
+CodeQuestLink: https://lmcodequestacademy.com/api/static/problems/ascii-squares
+"""
+
+#Neccicary libraries for all solutions
+import sys
+import math
+import string
+
+inputs = """2
+5
+ _ _ _ _
+|_|_|_|_|
+|_|_|_|_|
+|_|_|_|_|
+|_|_|_|_|
+4
+ _ _ _ _
+|_|_|_|_|_ _ _
+  |_|_|_|_|_|_|
+    |_|_|_|_|_|
+
+
+"""
+
+
+inputs = inputs.split("\n")
+
+#Fetches the first input and deletes it from being used further
+def automatic_inputs(value = None) -> str:
+    return_value = inputs[0].rstrip()
+    inputs.remove(inputs[0])  
+    return return_value
+
+
+
+
+
+
+cases = int(sys.stdin.readline().rstrip())
+
+for case in range(cases):
+    count = 0
+    #fetch the boxes
+    lines = []
+    numLines = int(sys.stdin.readline().rstrip())
+    for i in range(numLines):
+        lines.append(sys.stdin.readline().rstrip())
+    
+    ranges = []
+    for i in lines:
+        ranges.append(len(i))
+
+
+    #keep indexing errors out of the equation I aint dealing with that shiz
+    RANGE = max(ranges)
+    lines.append("S")
+    lines.append("S")
+    lines.append("S")
+    for i in range(len(lines)):
+        lines[i] = lines[i].ljust(RANGE+3,"S")
+
+
+    
+    #logic for iterating through the points
+    for y,obj in enumerate(lines):
+
+        for x in range(len(obj)):
+
+            for test_range in range(1,RANGE):
+
+                
+
+                #top side of the square  #verified
+                for test_x in range(test_range):
+
+                    if lines[y][x + test_x*2] == "_":
+
+                        continue
+                    else:
+                        break
+
+                #if it doesnt break, it will run the next test(down in this case)
+                else:
+                    #right side of the square           #Verified
+                    for test_y in range(1,test_range+1):
+
+                        if lines[y+test_y][x+test_x*2+1] == "|":
+
+                            continue
+                        else:
+                            break
+                    else:
+                        #bottom side of the square  #Verified
+                        for test_x in range(test_range):
+
+                            
+                            if lines[y+test_y][x + test_x*2] == "_":
+                                continue
+                            else:
+                                break
+                        #left side of the square #Verified
+                        else:
+
+                            for test_yr in range(1,test_range+1):
+                                if lines[y+test_yr][x-1] == "|":
+                                    
+                                    continue
+                                else:
+                                    break
+                            else:
+                                count += 1
+
+
+
+    print(count)
+
