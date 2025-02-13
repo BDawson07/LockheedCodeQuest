@@ -1,0 +1,35 @@
+import sys
+import math
+
+
+#number of cases
+cases = sys.stdin.readline().rstrip()
+
+for i in range(int(cases)):
+
+    #Each budget has its allowances and transactions
+    budgets, costs = sys.stdin.readline().rstrip().split()
+
+    catergories = []
+    for i in range(int(budgets)):
+        catergories.append(sys.stdin.readline().rstrip().split())
+
+    #handles code for every expense
+    for i in range(int(costs)):
+        category, typeE, cost = sys.stdin.readline().rstrip().split()
+        for i in range(len(catergories)):
+            if category == catergories[i][0]:
+                if typeE == '+':
+                    catergories[i][1] = int(catergories[i][1]) + int(cost)
+                    print("YES")
+                else:
+                    if int(catergories[i][1]) - int(cost) >= 0:
+                        catergories[i][1] = int(catergories[i][1]) - int(cost)
+                        print("YES")
+                    else:
+                        print("NO")
+
+                    
+
+                
+
