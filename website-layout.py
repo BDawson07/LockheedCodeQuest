@@ -1,8 +1,8 @@
 """
-Date: MM-DD-YY
-Name: 
-Authors:
-CodeQuestLink:
+Date: 2-25-2025
+Name: Website-layout
+Authors: Dawson Barthelemy
+CodeQuestLink: https://lmcodequestacademy.com/problem/website-layout
 """
 
 #Neccicary libraries for all solutions
@@ -10,77 +10,119 @@ import sys
 import math
 import string
 
-inputs = """
+inputs = """2
+3
+0 20
+50 100
+70 40
+5
+10 20
+20 30
+30 40
+40 50
+50 60
 
 """
 
 
 inputs = inputs.split("\n")
 
-#Rounding Half Up function
-#Super scuffed, and probably not that good, but it gets the job done 
-#also handles leading and trailing zeros
-def round_half_up(value:float,decimals:int, trailing_zeros = True, l_zeros = False, l_places = 0) -> str:
-
-    
-    #negative handling
-    value = float(value)#JIK
-    negative = 1
-    if value <= 0:
-        value *= -1
-        negative = -1
-    
-    new_value = value*10**(decimals+1)
-    new_value = math.floor(new_value)/10
-    
-
-    #rounding
-    if int(str(new_value)[-1]) >= 5:
-        new_value = math.ceil(new_value)
-    else:
-        new_value = math.floor(new_value)
-    new_value /= 10**decimals * negative
-
-
-    #formating
-    if trailing_zeros:
-        new_value = str(new_value).split(".")[0] + "." + str(new_value).split(".")[1].ljust(decimals,"0")   #trailing Zeros 
-    
-    if l_zeros:
-        new_value = str(new_value).split(".")[0].rjust(l_places,"0") + "." + str(new_value).split(".")[1]
-
-    return new_value
-
-#simplifies floating point math by simply getting rid of the floating points. Call this with a list of all values that will
-#have floats and code things like addition or subtraction with the float_go_away value in mind
-def check_numbers_for_floats(values:list) -> None:
-    global float_go_away
-    float_go_away = 1
-
-    greatest_len = 0
-    for i in values:
-        if len(str(float(i)).split(".")[1]) > greatest_len:
-            greatest_len = len(str(i).split(".")[1])   #finds the most complicated float value
-    
-    #At this point does it matter?
-    if greatest_len >= 30:
-        greatest_len = 30
-    float_go_away = 10**(greatest_len)
-    
-
-    
-
 def automatic_inputs(value = None) -> str:
     return_value = inputs[0]
     inputs.remove(inputs[0])  #Fetches the first input and deletes it from being used further
     return return_value
 
+            
+class Rows:
+    number = 0
+    rows = []
+    gaps = []
 
 
+    
+    @classmethod
+    def reset(cls) -> None:
+        """reset the class after each loop"""
 
+        cls.number = 0
+        cls.rows = []
+        cls.gaps = []
+
+    def __init__(self,start,length) -> None:
+        """Define a new row. 
+        The elements dont matter, just where it ends"""
+
+        if length == 0:
+            return  #no use creating the row
+        Rows.number += 1
+        self.end = start + length
+        Rows.gaps.append([(0, start)])  #first gap created in this list
+        Rows.rows.append(self)
+
+    @staticmethod
+    def doesFitExactly(start,length) -> float:
+        """Used to find where objects will fit exactly.
+        Returns a value to see if we need to loop through the code to find non perfect fits"""
+        for i in Rows.rows:
+            if i.end == start:
+                i.end += length
+                break
+        else:
+            
+            #if the program breaks, a solution was not found
+            return False
+        
+        #if it breaks, a solution was found
+        return True
+    @staticmethod
+    def doesFitIsh(start,length):
+        closest = 100000
+        current_find = None
+        for i in Rows.rows:
+            if start - i.end > 0:
+                if start - i.end < closest:
+                    current_find = i
+                    closest = start - i.end
+        
+        if current_find != None:
+            
+            current_find.end = start + length
+            return
+        else:
+            Rows(start,length)
+        
  
-cases = int(automatic_inputs())
+cases = int(sys.stdin.readline().rstrip())
 
 for case in range(cases):
+  
+    Rows.reset()
     ###Write the logic for each Sample###
     rows = []
+    objects = []
+
+    #how many objects
+    count = int(sys.stdin.readline().rstrip())
+    for i in range(count):
+        objects.append(sys.stdin.readline().rstrip().split(" "))
+
+    #int type conversion
+    for i in range(len(objects)):
+        objects[i] = [int(objects[i][0]), int(objects[i][1])]
+            
+    
+    #sort the objects by their offset then by their length (least to greatest
+    objects.sort()
+    
+    for i in objects:
+        #finds exacts fits
+        if not Rows.doesFitExactly(i[0],i[1]):
+            
+            Rows.doesFitIsh(i[0],i[1])
+
+
+    print(Rows.number)
+
+
+
+    
